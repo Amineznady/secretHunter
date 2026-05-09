@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.vulnerable.app"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <!-- Meta-data avec clés API -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+
+        <!-- Secrets dans les meta-data -->
+        <meta-data
+            android:name="STRIPE_API_KEY"
+            android:value="sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345" />
+
+        <meta-data
+            android:name="DATABASE_PASSWORD"
+            android:value="DbAdmin@2025!Secure" />
+
+        <meta-data
+            android:name="ADMIN_TOKEN"
+            android:value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6OTk5OTk5OTk5OX0" />
+
+        <!-- Service avec authentification -->
+        <service
+            android:name="com.vulnerable.service.SecureService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.vulnerable.SECURE_API" />
+                <data android:scheme="https" android:host="api.internal.company.com" />
+            </intent-filter>
+        </service>
+
+        <!-- Broadcast Receiver avec secret -->
+        <receiver
+            android:name="com.vulnerable.receiver.AuthReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.vulnerable.AUTH_CHECK" />
+                <data android:scheme="secure" android:host="admin@company.com" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Activity principale -->
+        <activity
+            android:name="com.vulnerable.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Strings ressources contenant des secrets -->
+        <string name="api_endpoint">https://api.internal-server.com/v2/secure?token=sk_live_secret_123</string>
+        <string name="admin_email">admin@company.com</string>
+        <string name="backup_url">https://backup.internal.company.com/restore</string>
+
+    </application>
+
+</manifest>

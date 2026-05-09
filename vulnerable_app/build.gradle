@@ -1,0 +1,92 @@
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.vulnerable.app"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        // Secrets dans buildConfigField
+        buildConfigField "String", "GOOGLE_API_KEY", "\"AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY\""
+        buildConfigField "String", "STRIPE_SECRET_KEY", "\"sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345\""
+        buildConfigField "String", "FIREBASE_TOKEN", "\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZTkxNGU0NTc0ZTc1ODQzOTYyZWM2OTUzYTdmOWU5YzU5ODBjZWEifQ\""
+        buildConfigField "String", "DATABASE_URL", "\"jdbc:mysql://db.company.com:3306/production_db?user=admin&password=Admin@2025!Secure\""
+        buildConfigField "String", "AWS_ACCESS_KEY", "\"AKIAIOSFODNN7EXAMPLE\""
+        buildConfigField "String", "AWS_SECRET_KEY", "\"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY\""
+        buildConfigField "String", "OAUTH_TOKEN", "\"ya29.a0AfH6SMBx8P8Z9L5M3N4O5P6Q7R8S9T0U1V2W3X4Y5Z\""
+        buildConfigField "String", "API_BASE_URL", "\"https://api.internal-server.com/v2/secure\""
+        buildConfigField "String", "ADMIN_PASSWORD", "\"AdminSecurePass2025!\""
+        buildConfigField "String", "ENCRYPTION_KEY", "\"aKxL9mN0oPqRs8TuVwXyZ1234567890abc\""
+
+        // Ressources
+        resValue "string", "app_name", "Vulnerable App"
+        resValue "string", "api_key", "AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY"
+        resValue "string", "admin_email", "admin@confidential-company.com"
+        resValue "string", "internal_url", "https://internal-api.company.com/admin"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            // Secrets non obfusqués en release
+            buildConfigField "String", "RELEASE_API_KEY", "\"sk_release_key_12345\""
+            buildConfigField "String", "RELEASE_TOKEN", "\"release_token_abcdef123456\""
+        }
+
+        debug {
+            debuggable true
+            // Secrets en debug
+            buildConfigField "String", "DEBUG_API_KEY", "\"debug_key_xyz789\""
+            buildConfigField "String", "DEBUG_PASSWORD", "\"debug_pass_123\""
+        }
+    }
+
+    // Flavor avec secrets supplémentaires
+    flavorDimensions "environment"
+
+    productFlavors {
+        production {
+            dimension "environment"
+            buildConfigField "String", "ENVIRONMENT", "\"production\""
+            buildConfigField "String", "API_URL", "\"https://api-prod.company.com\""
+            buildConfigField "String", "DB_HOST", "\"db-prod.internal\""
+            buildConfigField "String", "ADMIN_TOKEN", "\"prod_admin_token_secure_123\""
+        }
+
+        staging {
+            dimension "environment"
+            buildConfigField "String", "ENVIRONMENT", "\"staging\""
+            buildConfigField "String", "API_URL", "\"https://api-staging.company.com\""
+            buildConfigField "String", "DB_HOST", "\"db-staging.internal\""
+            buildConfigField "String", "ADMIN_TOKEN", "\"staging_admin_token_123\""
+        }
+
+        development {
+            dimension "environment"
+            buildConfigField "String", "ENVIRONMENT", "\"development\""
+            buildConfigField "String", "API_URL", "\"http://localhost:8080\""
+            buildConfigField "String", "DB_HOST", "\"localhost\""
+            buildConfigField "String", "ADMIN_TOKEN", "\"dev_token_xyz\""
+        }
+    }
+
+    // Signing avec secrets
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            storePassword "KeyStorePass2025!@#"
+            keyAlias "release_key"
+            keyPassword "KeyPassword2025!@#"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.firebase:firebase-messaging:23.2.1'
+}

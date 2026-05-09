@@ -1,0 +1,59 @@
+# Sensitive Files - NEVER COMMIT
+.env
+.env.local
+.env.production
+.env.staging
+
+# Config files with secrets
+config/secrets.json
+config/database.json
+config/api_keys.json
+
+# Private keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Logs that might contain secrets
+logs/*.log
+*.log
+
+# IDE files
+.vscode/settings.json
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+env/
+
+# Project folders
+uploads/
+results/
+test_uploads/
+test_results/
+
+# Temporary files
+*.tmp
+*.temp
+*.pdf
+report.pdf
+
+# Test files
+tmp_test_post.py
+final_test.txt
+COMMANDES_EXECUTION.md
+VERIFICATION_REPORT_PRO_V3.md
+

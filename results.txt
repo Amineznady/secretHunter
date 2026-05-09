@@ -1,0 +1,18 @@
+SecretHunter Scan Results - 2 findings (STRICT mode)
+
+File: C:\Users\user\Downloads\FireStorm\res\values\strings.xml
+Line: 7
+Type: JWT Token
+Severity: HIGH
+Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJQd25TZWNBZG1pbiIsInVzZXJfaWQiOiIxMTFyMjNxdzEycnExMnJxdzEiLCJleHAiOjE3MjQ1NzU1MzAsIkZsYWciOiJGTEFHe0Zha2VfRmxhZ30ifQ.G7zWJ_AoW5twGcskDo78dVMw8MpQpd3Gi50DjJqx4z4
+Context: <string name="Token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJQd25TZWNBZG1pbiIsInVzZXJfaWQiOiIxMTFyMjNxdzEycnExMnJxdzEiLCJleHAiOjE3MjQ1NzU1MzAsIkZsYWciOiJGTEFHe0Zha2VfRmxhZ30ifQ.G7zWJ_AoW5twGcskDo78dVMw8MpQpd3Gi50DjJqx4z4</string>
+Detection Mode: STRICT
+--------------------------------------------------
+File: C:\Users\user\Downloads\FireStorm\res\values\strings.xml
+Line: 62
+Type: Firebase URL
+Severity: MEDIUM
+Value: https://firestorm-9d3db-default-rtdb.firebaseio.com
+Context: <string name="firebase_database_url">https://firestorm-9d3db-default-rtdb.firebaseio.com</string>
+Detection Mode: STRICT
+--------------------------------------------------

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Clés API Google exposées dans les ressources -->
+    <string name="google_maps_api_key">AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY</string>
+    <string name="google_firebase_key">AIzaSyC0L5n9FQJ8U7P9M8N7O6Q5R4S3T2U1V0W</string>
+    
+    <!-- Tokens d'authentification -->
+    <string name="bearer_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzNDU2IiwibmFtZSI6IkFkbWluUsO0IiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0</string>
+    <string name="api_key_slack">xoxb-FAKE1234567890-FAKE1234567890-abcdefghijklmnopqrstuvwxFAKEqrstuvwx</string>
+    
+    <!-- URLs sensibles -->
+    <string name="internal_api_url">https://internal-api.company.com/v3/admin/users</string>
+    <string name="admin_panel_url">https://admin.secure-app.com/panel?token=secret_token_12345</string>
+    <string name="database_backup_url">https://backup-server.internal/db/prod_2025_latest.sql.gz</string>
+    
+    <!-- Identifiants d'administrateur -->
+    <string name="admin_username">administrator</string>
+    <string name="admin_password">AdminSecurePass2025!</string>
+    <string name="root_password">RootPassword123!@#</string>
+    
+    <!-- Informations de contact sensibles -->
+    <string name="ceo_email">ceo@confidential-company.com</string>
+    <string name="cto_email">cto@confidential-company.com</string>
+    <string name="security_email">security-team@confidential-company.com</string>
+    
+    <!-- Clés privées/secrets -->
+    <string name="private_key_password">MyPrivateKeyPass2025!</string>
+    <string name="encryption_key">aKxL9mN0oPqRs8TuVwXyZ1234567890abc</string>
+    
+    <!-- Tokens AWS -->
+    <string name="aws_access_key">AKIAIOSFODNN7EXAMPLE</string>
+    <string name="aws_secret_key">wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</string>
+    
+    <!-- URLs internes -->
+    <string name="jenkins_url">https://jenkins.company.internal/job/deploy</string>
+    <string name="git_repo_url">https://git-admin:GitPass2025@gitlab.internal/secure/project.git</string>
+</resources>

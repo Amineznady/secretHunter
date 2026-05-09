@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+
+{% block title %}SecretHunter Pro - Analyse APK{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <div class="hero-icon mb-4">
+                <i class="bi bi-shield-check display-1 text-primary"></i>
+            </div>
+            <h1 class="display-5 fw-bold text-dark mb-3">
+                Analyse de Sécurité APK
+            </h1>
+            <p class="lead text-muted mb-4">
+                Détectez automatiquement les données sensibles dans vos applications Android
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-info border-0 shadow-sm">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Analyse professionnelle :</strong> Clés API, tokens, mots de passe, emails, URLs sensibles et configurations de base de données
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow-lg border-0 h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-upload me-2"></i>
+                            Téléversement d'APK
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="upload-form" method="post" action="{{ url_for('main.scan_apk') }}" enctype="multipart/form-data">
+                            <!-- Drop Zone -->
+                            <div id="drop-area" class="drop-zone mb-4">
+                                <div class="drop-zone-content">
+                                    <i class="bi bi-cloud-upload display-4 text-primary mb-3"></i>
+                                    <h5 class="text-primary">Glissez-déposez votre fichier APK</h5>
+                                    <p class="text-muted mb-3">ou cliquez pour sélectionner un fichier</p>
+                                    <div class="file-info">
+                                        <small class="text-muted">
+                                            <i class="bi bi-file-earmark-zip me-1"></i>
+                                            Format accepté : .apk • Taille max : 150 Mo
+                                        </small>
+                                    </div>
+                                </div>
+                                <input id="apk-file" type="file" name="apk_file" accept=".apk" class="d-none">
+                            </div>
+
+                            <!-- Mode Selection -->
+                            <div class="mb-4">
+                                <label class="form-label fw-semibold">
+                                    <i class="bi bi-gear me-2"></i>Mode d'analyse
+                                </label>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-custom">
+                                            <input class="form-check-input" type="radio" name="mode" value="strict" id="mode-strict" checked>
+                                            <label class="form-check-label" for="mode-strict">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-shield-exclamation text-danger me-2 fs-5"></i>
+                                                    <div>
+                                                        <strong>STRICT</strong>
+                                                        <br><small class="text-muted">Clés API, tokens, clés privées uniquement</small>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-custom">
+                                            <input class="form-check-input" type="radio" name="mode" value="vulnerable" id="mode-vulnerable">
+                                            <label class="form-check-label" for="mode-vulnerable">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="bi bi-search text-warning me-2 fs-5"></i>
+                                                    <div>
+                                                        <strong>VULNERABLE</strong>
+                                                        <br><small class="text-muted">Détection complète (mots de passe, emails, URLs)</small>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button id="scan-button" type="submit" class="btn btn-primary btn-lg px-5 py-3">
+                                    <i class="bi bi-play-circle me-2"></i>
+                                    Lancer l'analyse
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Loading State -->
+                        <div id="loader" class="loading-state d-none mt-4">
+                            <div class="text-center">
+                                <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                                    <span class="visually-hidden">Analyse en cours...</span>
+                                </div>
+                                <h5 class="text-primary">Analyse en cours</h5>
+                                <p class="text-muted">Décompression de l'APK et analyse de sécurité...</p>
+                                <div class="progress mt-3">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Panel -->
+            <div class="col-lg-4">
+                <div class="card shadow-lg border-0 h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-check-circle me-2"></i>
+                            Fonctionnalités
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="features-list">
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-upload text-success me-3"></i>
+                                <div>
+                                    <strong>Téléversement sécurisé</strong>
+                                    <br><small class="text-muted">Validation et stockage temporaire</small>
+                                </div>
+                            </div>
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-tools text-success me-3"></i>
+                                <div>
+                                    <strong>Décompilation automatique</strong>
+                                    <br><small class="text-muted">Utilisation d'apktool pour l'extraction</small>
+                                </div>
+                            </div>
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-search text-success me-3"></i>
+                                <div>
+                                    <strong>Analyse intelligente</strong>
+                                    <br><small class="text-muted">Détection par patterns et entropie</small>
+                                </div>
+                            </div>
+                            <div class="feature-item mb-3">
+                                <i class="bi bi-file-earmark-text text-success me-3"></i>
+                                <div>
+                                    <strong>Rapport détaillé</strong>
+                                    <br><small class="text-muted">Résultats structurés et exportables</small>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <i class="bi bi-shield-check text-success me-3"></i>
+                                <div>
+                                    <strong>Sécurité garantie</strong>
+                                    <br><small class="text-muted">Analyse statique sans exécution</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const dropArea = document.getElementById('drop-area');
+    const fileInput = document.getElementById('apk-file');
+    const uploadForm = document.getElementById('upload-form');
+    const loader = document.getElementById('loader');
+    const scanButton = document.getElementById('scan-button');
+
+    // Drag and drop functionality
+    function highlight() {
+        dropArea.classList.add('drop-zone-active');
+    }
+
+    function unhighlight() {
+        dropArea.classList.remove('drop-zone-active');
+    }
+
+    function handleDrop(e) {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        if (files.length && files[0].name.toLowerCase().endsWith('.apk')) {
+            fileInput.files = files;
+            updateDropZoneContent(files[0]);
+        } else {
+            showError('Veuillez sélectionner un fichier APK valide.');
+        }
+        unhighlight();
+    }
+
+    function updateDropZoneContent(file) {
+        const content = dropArea.querySelector('.drop-zone-content');
+        content.innerHTML = `
+            <i class="bi bi-file-earmark-zip-fill display-4 text-success mb-3"></i>
+            <h5 class="text-success">${file.name}</h5>
+            <p class="text-muted">${(file.size / 1024 / 1024).toFixed(2)} Mo</p>
+            <small class="text-muted">Cliquez pour changer de fichier</small>
+        `;
+    }
+
+    function showError(message) {
+        // You could implement a toast notification here
+        alert(message);
+    }
+
+    // Event listeners
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, e => {
+            e.preventDefault();
+            highlight();
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, e => {
+            e.preventDefault();
+            unhighlight();
+        });
+    });
+
+    dropArea.addEventListener('drop', handleDrop);
+    dropArea.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', function() {
+        if (this.files.length) {
+            updateDropZoneContent(this.files[0]);
+        }
+    });
+
+    // Form submission
+    uploadForm.addEventListener('submit', function(e) {
+        const file = fileInput.files[0];
+        if (!file) {
+            e.preventDefault();
+            showError('Veuillez sélectionner un fichier APK.');
+            return;
+        }
+
+        if (!file.name.toLowerCase().endsWith('.apk')) {
+            e.preventDefault();
+            showError('Seuls les fichiers .apk sont acceptés.');
+            return;
+        }
+
+        scanButton.disabled = true;
+        scanButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyse...';
+        loader.classList.remove('d-none');
+    });
+});
+</script>
+{% endblock %}

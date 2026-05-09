@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Résultats d'analyse - SecretHunter Pro{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+        <!-- Header Section -->
+        <div class="card shadow-lg border-0 mb-4">
+            <div class="card-header bg-primary text-white">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="h4 mb-1">
+                            <i class="bi bi-clipboard-check me-2"></i>
+                            Résultats de l'analyse
+                        </h1>
+                        <p class="mb-0 opacity-75">
+                            <i class="bi bi-file-earmark-zip me-1"></i>
+                            {{ filename }} •
+                            <i class="bi bi-gear me-1"></i>
+                            Mode {{ mode.upper() }}
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <a href="{{ url_for('main.download_result', filename=result_file) }}" class="btn btn-light me-2">
+                            <i class="bi bi-download me-1"></i>Télécharger
+                        </a>
+                        <a href="{{ url_for('main.index') }}" class="btn btn-outline-light">
+                            <i class="bi bi-arrow-repeat me-1"></i>Nouveau scan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stats-icon mb-2">
+                            <i class="bi bi-search display-4 text-primary"></i>
+                        </div>
+                        <h3 class="stats-number mb-1">{{ total_findings }}</h3>
+                        <p class="stats-label text-muted mb-0">Total détections</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stats-icon mb-2">
+                            <i class="bi bi-exclamation-triangle-fill display-4 text-danger"></i>
+                        </div>
+                        <h3 class="stats-number mb-1">{{ stats.critical + stats.high }}</h3>
+                        <p class="stats-label text-muted mb-0">Critique/Élevé</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stats-icon mb-2">
+                            <i class="bi bi-dash-circle-fill display-4 text-warning"></i>
+                        </div>
+                        <h3 class="stats-number mb-1">{{ stats.medium }}</h3>
+                        <p class="stats-label text-muted mb-0">Moyen</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card stats-card border-0 shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <div class="stats-icon mb-2">
+                            <i class="bi bi-info-circle-fill display-4 text-info"></i>
+                        </div>
+                        <h3 class="stats-number mb-1">{{ stats.low }}</h3>
+                        <p class="stats-label text-muted mb-0">Faible</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {% if findings %}
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">
+                        <i class="bi bi-list-ul me-2"></i>
+                        Détails des détections ({{ findings|length }})
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="border-0 fw-semibold">
+                                        <i class="bi bi-tag me-1"></i>Type
+                                    </th>
+                                    <th class="border-0 fw-semibold">
+                                        <i class="bi bi-file-earmark me-1"></i>Fichier
+                                    </th>
+                                    <th class="border-0 fw-semibold">
+                                        <i class="bi bi-hash me-1"></i>Ligne
+                                    </th>
+                                    <th class="border-0 fw-semibold">
+                                        <i class="bi bi-exclamation-circle me-1"></i>Sévérité
+                                    </th>
+                                    <th class="border-0 fw-semibold">
+                                        <i class="bi bi-chat-quote me-1"></i>Contexte
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for finding in findings %}
+                                    <tr class="finding-row">
+                                        <td>
+                                            <span class="badge bg-secondary">{{ finding.type }}</span>
+                                        </td>
+                                        <td>
+                                            <code class="text-break">{{ finding.file }}</code>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-light text-dark">{{ finding.line }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge severity-badge
+                                                {% if finding.severity == 'CRITICAL' %}bg-danger
+                                                {% elif finding.severity == 'HIGH' %}bg-danger
+                                                {% elif finding.severity == 'MEDIUM' %}bg-warning text-dark
+                                                {% else %}bg-info text-dark{% endif %}">
+                                                {% if finding.severity == 'CRITICAL' %}
+                                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                                {% elif finding.severity == 'HIGH' %}
+                                                    <i class="bi bi-exclamation-circle me-1"></i>
+                                                {% elif finding.severity == 'MEDIUM' %}
+                                                    <i class="bi bi-dash-circle me-1"></i>
+                                                {% else %}
+                                                    <i class="bi bi-info-circle me-1"></i>
+                                                {% endif %}
+                                                {{ finding.severity }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <div class="context-text" title="{{ finding.context }}">
+                                                {{ finding.context[:120] }}{% if finding.context|length > 120 %}...{% endif %}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <!-- No Findings -->
+            <div class="card shadow-lg border-0">
+                <div class="card-body text-center py-5">
+                    <div class="success-icon mb-4">
+                        <i class="bi bi-check-circle-fill display-1 text-success"></i>
+                    </div>
+                    <h3 class="text-success mb-3">Aucun secret détecté</h3>
+                    <p class="text-muted mb-4">
+                        L'analyse n'a trouvé aucune donnée sensible dans cet APK selon le mode {{ mode.upper() }} sélectionné.
+                    </p>
+                    <div class="alert alert-success border-0">
+                        <i class="bi bi-shield-check me-2"></i>
+                        <strong>Sécurité validée :</strong> Votre application semble sécurisée selon les critères d'analyse appliqués.
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Actions Footer -->
+        <div class="card shadow-lg border-0 mt-4">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h6 class="mb-1">Actions disponibles</h6>
+                        <p class="text-muted mb-0">
+                            Téléchargez le rapport complet ou analysez un autre APK
+                        </p>
+                    </div>
+                    <div class="col-md-4 text-md-end">
+                        <a href="{{ url_for('main.download_result', filename=result_file) }}" class="btn btn-primary me-2">
+                            <i class="bi bi-file-earmark-text me-1"></i>Rapport complet
+                        </a>
+                        <a href="{{ url_for('main.index') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-circle me-1"></i>Nouvelle analyse
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
