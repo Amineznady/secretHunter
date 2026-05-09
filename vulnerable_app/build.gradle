@@ -10,7 +10,7 @@ android {
 
         // Secrets dans buildConfigField
         buildConfigField "String", "GOOGLE_API_KEY", "\"AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY\""
-        buildConfigField "String", "STRIPE_SECRET_KEY", "\"sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345\""
+        buildConfigField "String", "STRIPE_SECRET_KEY", "\"sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345FAKE\""
         buildConfigField "String", "FIREBASE_TOKEN", "\"eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZTkxNGU0NTc0ZTc1ODQzOTYyZWM2OTUzYTdmOWU5YzU5ODBjZWEifQ\""
         buildConfigField "String", "DATABASE_URL", "\"jdbc:mysql://db.company.com:3306/production_db?user=admin&password=Admin@2025!Secure\""
         buildConfigField "String", "AWS_ACCESS_KEY", "\"AKIAIOSFODNN7EXAMPLE\""

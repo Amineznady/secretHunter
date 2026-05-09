@@ -6,7 +6,7 @@ public class ApiClient {
     private static final String GOOGLE_MAPS_KEY = "AIzaSyDx-wNqRsPc7VwhQZqFeXzM0xVfYnWmWNY";
     
     // Token Stripe hardcodé
-    private static final String STRIPE_KEY = "sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345";
+    private static final String STRIPE_KEY = "sk_live_YOUR_FAKE_STRIPE_KEY_HERE_12345FAKE";
     
     // Token Firebase
     private static final String FIREBASE_TOKEN = "eyJhbGciOiJSUzI1NiIsImtpZCI6IjE2ZTkxNGU0NTc0ZTc1ODQzOTYyZWM2OTUzYTdmOWU5YzU5ODBjZWEifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsInN1YiI6IjExMzE5NzA2NTA4NTk4MTUwNzE2IiwiZW1haWwiOiJ1c2VyQGV4YW1wbGUuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiItSmoxR0IyREE3TlZSdzNIdHdFUUx3In0.signature";
