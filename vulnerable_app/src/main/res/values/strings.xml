@@ -6,7 +6,7 @@
     
     <!-- Tokens d'authentification -->
     <string name="bearer_token">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMTIzNDU2IiwibmFtZSI6IkFkbWluUsO0IiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0</string>
-    <string name="api_key_slack">xoxb-FAKE1234567890-FAKE1234567890-abcdefghijklmnopqrstuvwxFAKEqrstuvwx</string>
+    <string name="api_key_slack">xoxb-FAKE1234567890-FAKE1234567890-abcdefghijklmnopqrstuvwxFAKEqrstuvwxqrstuvwx</string>
     
     <!-- URLs sensibles -->
     <string name="internal_api_url">https://internal-api.company.com/v3/admin/users</string>
